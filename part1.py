@@ -7,6 +7,7 @@ def read_calls(file: open) -> {(str, str): int}:
         callees = parts[1:]
 
         for callee in callees:
+            
             if (caller, callee) in calls:
                 calls[(caller, callee)] += 1
             else:
