@@ -3,16 +3,22 @@ class NamespaceManager:
         self.namespace = {}
 
     def set_variable(self, name, value):
-        pass
+        self.namespace[name] = value
 
     def get_variable(self, name):
-        pass
+        if name in self.namespace:
+            return self.namespace[name]
+        else:
+            raise KeyError(f"Variable '{name}' not found")
 
     def delete_variable(self, name):
-        pass
+        if name in self.namespace:
+            del self.namespace[name]
+        else:
+            raise KeyError(f"Variable '{name}' not found")
 
     def list_variables(self):
-        pass
+        return list(self.namespace.keys())
 
     def execute_function(self, code):
-        pass
+        exec(code, {}, self.namespace)
