@@ -1,32 +1,26 @@
-from typing import Dict, Tuple
+def read_calls(file_path):
+    calls_dict = {}
+    with open(file_path, 'r') as file:
+        for line in file:
+            calls = line.strip().split(':')
+            caller = calls[0]
+            for callee in calls[1:]:
+                if (caller, callee) in calls_dict:
+                    calls_dict[(caller, callee)] += 1
+                else:
+                    calls_dict[(caller, callee)] = 1
+    return calls_dict
 
-def read_calls(file: open) -> Dict[Tuple[str, str], int]:
-    calls = {}
+def call1to2(calls_dict):
+    nested_dict = {}
+    for (caller, callee), count in calls_dict.items():
+        if caller not in nested_dict:
+            nested_dict[caller] = {}
+        nested_dict[caller][callee] = count
+    return nested_dict
 
-    for line in file:
-        parts = line.strip().split(':')
-
-        if not parts:
-            continue
-        caller = parts[0]
-        callees = parts[1:]
-
-        for callee in callees:
-            if (caller, callee) in calls:
-                calls[(caller, callee)] += 1
-            else:
-                calls[(caller, callee)] = 1
-
-    return calls
-
-def call1to2(calls: Dict[Tuple[str, str], int]) -> Dict[str, Dict[str, int]]:
-    calls_nested_dict = {}
-
-    for (caller, callee), count in calls.items():
-        if caller not in calls_nested_dict:
-            calls_nested_dict[caller] = {}
-        calls_nested_dict[caller][callee] = count
-
-    return calls_nested_dict
-
-    return calls_nested_dict
+if __name__ == "__main__":
+    calls_dict = read_calls('calls.txt')
+    print(calls_dict)
+    nested_dict = call1to2(calls_dict)
+    print(nested_dict)
