@@ -1,6 +1,7 @@
 def stable_stock_matching(buyers_preferences, stocks_preferences):
     free_buyers = list(buyers_preferences.keys())
     matches = {}
+    stock_to_buyer = {}
 
     proposals = {buyer: [] for buyer in buyers_preferences}
 
@@ -12,17 +13,20 @@ def stable_stock_matching(buyers_preferences, stocks_preferences):
             if stock not in proposals[buyer]:
                 proposals[buyer].append(stock)
                 
-                if stock not in matches:
-                    matches[stock] = buyer
+                if stock not in stock_to_buyer:
+                    stock_to_buyer[stock] = buyer
+                    matches[buyer] = stock
                     break
                 else:
-                    current_buyer = matches[stock]
+                    current_buyer = stock_to_buyer[stock]
                     stock_prefs = stocks_preferences[stock]
                     
                     if stock_prefs.index(buyer) < stock_prefs.index(current_buyer):
-                        matches[stock] = buyer
+                        stock_to_buyer[stock] = buyer
+                        matches[buyer] = stock
                         free_buyers.append(current_buyer)
+                        del matches[current_buyer]
+                        
                         break
 
-    result = {buyer: stock for stock, buyer in matches.items()}
-    return result
+    return matches
