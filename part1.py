@@ -5,6 +5,7 @@ def read_calls(file: open) -> Dict[Tuple[str, str], int]:
 
     for line in file:
         parts = line.strip().split(':')
+
         if not parts:
             continue
         caller = parts[0]
@@ -25,5 +26,7 @@ def call1to2(calls: Dict[Tuple[str, str], int]) -> Dict[str, Dict[str, int]]:
         if caller not in calls_nested_dict:
             calls_nested_dict[caller] = {}
         calls_nested_dict[caller][callee] = count
+
+    return calls_nested_dict
 
     return calls_nested_dict
