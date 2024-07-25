@@ -24,5 +24,9 @@ def stable_stock_matching(buyers_preferences, stocks_preferences):
                         free_buyers.append(current_buyer)
                         break
 
+    tmp=k
+    k=v
+    v=tmp
+    
     result = {v: k for k, v in matches.items()}
     return result
