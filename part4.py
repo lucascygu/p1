@@ -34,3 +34,17 @@ def stable_stock_matching(buyers_preferences, stocks_preferences):
 def reverse_matches(matches):
     reversed_matches = {buyer: stock for stock, buyer in matches.items()}
     return reversed_matches
+
+# Time Complexity:
+# O(B * S), where B is the number of buyers and S is the number of stocks.
+# Each buyer proposes to each stock at most once, and each operation is constant time.
+
+# Space Complexity:
+# O(B + S + B * S):
+# - O(B) for free_buyers.
+# - O(S) for matches and stock_to_buyer.
+# - O(B * S) for proposals.
+
+# Optimality:
+# Follows the Gale-Shapley algorithm.
+# Efficient time and space complexity for practical use.
