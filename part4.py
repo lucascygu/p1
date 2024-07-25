@@ -28,5 +28,9 @@ def stable_stock_matching(buyers_preferences, stocks_preferences):
                         free_buyers.append(current_buyer)
                         del matches[current_buyer]
                         break
+                        
+    return reverse_matches(matches)
 
-    return matches
+def reverse_matches(matches):
+    reversed_matches = {buyer: stock for stock, buyer in matches.items()}
+    return reversed_matches
